@@ -1,7 +1,7 @@
 {
-  "hash": "00eb2a8757adc1afb7a0084f02ae56af",
+  "hash": "0a9c978fb2efd51c1cc23d4a75dc2f43",
   "result": {
-    "markdown": "---\ntitle: \"sebastiansuarez\"\n---\n\n\nThis is a Quarto website.\n\nTo learn more about Quarto websites visit <https://quarto.org/docs/websites>.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "markdown": "---\ntitle: \"sebastiansuarez\"\n---\n\n\n\"My current research interests focus on conflict and conflict resolution. Civil wars both in high and low intensities have caught my curiosity and the role of mediators in peace processes. Furthermore, my primary research focus is on the Colombian armed conflict and other instances of political violence in Latin America. More specifically, I am interested in the role of state capacity in civil conflicts and how the type of mediators affect the outcomes of peace processes.\"\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
