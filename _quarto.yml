@@ -8,11 +8,17 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: research.qmd
+        text: Research
+      - href: https://github.com/sebastiansuarez189/myrepo.git  
+        text: Research2
+      
+        
+      
 
 format:
   html:
-    theme: cosmo
+    theme: superhero
     css: styles.css
     toc: true
 
