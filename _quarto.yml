@@ -3,15 +3,20 @@ project:
   output-dir: docs
 
 website:
-  title: "sebastiansuarez"
+  title: "Sebastian Suarez"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - href: research.qmd
-        text: Research
+      - href: about.qmd
+        text: About
       - href: https://github.com/sebastiansuarez189/myrepo.git  
-        text: Research2
+        text: Github
+      - href: Code.qmd
+        text: Research Code
+      - href: Homer's Web Site.qmd
+        text: Best Website
+        
       
         
       

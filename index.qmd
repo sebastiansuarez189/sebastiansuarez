@@ -1,9 +1,9 @@
 ---
-title: "Sebastian Suarez"
+title: "Purpose of the Website"
 ---
 
-"My current research interests focus on conflict and conflict resolution. Civil wars both in high and low intensities have caught my curiosity and the role of mediators in peace processes. Furthermore, my primary research focus is on the Colombian armed conflict and other instances of political violence in Latin America. More specifically, I am interested in the role of state capacity in civil conflicts and how the type of mediators affect the outcomes of peace processes."
+"In this website I will upload the data that I will use this website to upload the data I am using for research projects and the graphs that help me analyze the said data. This is a small project that hopefully will grow with the pass of time and help other graduate students.
 
-```{r}
+As a project for the GVPT 729B class, the goal is to improve my quantitative skills as well to acquire new methodological tools that are helpful in the academic career"
 
-```
+![](seb.jpg){fig-align="center"}

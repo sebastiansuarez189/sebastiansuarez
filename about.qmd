@@ -1,9 +1,24 @@
 ---
-title: "About"
+title: "Sebastian Suarez"
 ---
 
-About this site
+"My current research interests focus on conflict and conflict resolution. Civil wars both in high and low intensities have caught my curiosity and the role of mediators in peace processes. Furthermore, my primary research focus is on the Colombian armed conflict and other instances of political violence in Latin America. More specifically, I am interested in the role of state capacity in civil conflicts and how the type of mediators affect the outcomes of peace processes."
 
-```{r}
-1 + 1
-```
+**Education**
+
+**University of Maryland August 2021-Present Government and Politics PhD**
+
+-Relevant Courses: Quantitative Research Methods, Advanced Quantitative Research Methods, Conflict, Institutions, Mixed Methods Research.
+
+**University of California, Los Angeles June 2020 Master of Social Sciences**
+
+-Relevant Courses: Qualitative Research Methods, Quantitative Research Methods, Community Based Research, Research Design. 
+
+**University of California, Irvine June 2018 Bachelor of Arts in Political Science/Minor in Literary Journalism**
+
+Relevant Courses: Homeland Security, International Political Economy, Globalization, US Intervention in Latin America. 
+
+**Irvine Valley College May 2016 Associate\'s degree in Social and Behavioral Science, Cum Laude.**
+
+[Resume 2023](https://docs.google.com/document/d/16kwvS5TWIbtpxTOUhnggD6VYXf11smzZO2Zxq2QFqaI/edit?usp=sharing)\
+
