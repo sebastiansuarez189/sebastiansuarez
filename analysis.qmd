@@ -1,0 +1,15 @@
+---
+title: "Statistical Analysis"
+---
+
+![Twitter Networks in The Colombian Congress](Basic%20Network%20Plot.png)
+
+![](Communities%20on%20the%20Colombian%20Congress1.png)
+
+![](Communities%20on%20the%20Colombian%20Congress2.png)
+
+![](Communities%20on%20the%20Colombian%20Congress3.png)
+
+![](Communities%20on%20the%20Colombian%20Congress4.png)
+
+![](Authority%20and%20Hub.png)
