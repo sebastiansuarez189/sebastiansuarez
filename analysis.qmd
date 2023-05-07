@@ -4,12 +4,24 @@ title: "Statistical Analysis"
 
 ![Twitter Networks in The Colombian Congress](Basic%20Network%20Plot.png)
 
+This graph shows the four communities from the dataset.
+
 ![](Communities%20on%20the%20Colombian%20Congress1.png)
+
+This graph shows the authorities in the community
 
 ![](Communities%20on%20the%20Colombian%20Congress2.png)
 
+This graph shows the authorities in the community
+
 ![](Communities%20on%20the%20Colombian%20Congress3.png)
+
+This graph shows the authorities in the community
 
 ![](Communities%20on%20the%20Colombian%20Congress4.png)
 
+This graph shows the authorities in the community
+
 ![](Authority%20and%20Hub.png)
+
+![Another view of the authority and hubs](Authority-and-Hub2.png)

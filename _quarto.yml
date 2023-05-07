@@ -15,7 +15,7 @@ website:
       - href: Code.qmd
         text: Research Code
       - href: analysis.qmd
-        text: Stattistical Analysis
+        text: Statistical Analysis
       - href: Homer's Web Site.qmd
         text: Best Website
 
