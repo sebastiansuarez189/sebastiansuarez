@@ -160,7 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./analysis.html">
- <span class="menu-text">Stattistical Analysis</span></a>
+ <span class="menu-text">Statistical Analysis</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./Homer's Web Site.html">
@@ -181,10 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tweets-networks-text" id="toc-tweets-networks-text" class="nav-link active" data-scroll-target="#tweets-networks-text">Tweets, Networks, Text</a>
-  <ul class="collapse">
-  <li><a href="#lets-see-who-are-the-leading-authorities-of-each-community" id="toc-lets-see-who-are-the-leading-authorities-of-each-community" class="nav-link" data-scroll-target="#lets-see-who-are-the-leading-authorities-of-each-community">Let’s see who are the leading authorities of each community</a></li>
-  </ul></li>
+  <li><a href="#lets-see-who-are-the-leading-authorities-of-each-community" id="toc-lets-see-who-are-the-leading-authorities-of-each-community" class="nav-link active" data-scroll-target="#lets-see-who-are-the-leading-authorities-of-each-community">Let’s see who are the leading authorities of each community</a></li>
   </ul>
 </nav>
     </div>
@@ -208,10 +205,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="tweets-networks-text" class="level2">
-<h2 class="anchored" data-anchor-id="tweets-networks-text">Tweets, Networks, Text</h2>
-<p>Let us now compare the language use by House Democrats and Republicans</p>
-<p>We will again load the Twitter data and create our network of MCs that retweet each other:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Library to produce network graphs</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -339,7 +332,7 @@ Attaching package: 'dplyr'</code></pre>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(d) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Tweets"</span>)</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">tail</span>(d))</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#windows()</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="fu">paste</span>(<span class="st">"Communities on the Colombian Congress"</span>,i,<span class="st">".png"</span>,<span class="at">sep=</span><span class="st">""</span>), <span class="at">w=</span><span class="dv">700</span>, <span class="at">h=</span><span class="dv">1000</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="fu">paste</span>(<span class="st">"Colombian Congress"</span>,i,<span class="st">".png"</span>,<span class="at">sep=</span><span class="st">""</span>), <span class="at">w=</span><span class="dv">700</span>, <span class="at">h=</span><span class="dv">1000</span>)</span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(<span class="fu">tail</span>(d,<span class="at">n=</span><span class="dv">30</span>), <span class="fu">barplot</span>(Tweets, <span class="at">names=</span><span class="fu">tail</span>(<span class="fu">rownames</span>(d),<span class="at">n=</span><span class="dv">30</span>), <span class="at">horiz=</span>T, <span class="at">las=</span><span class="dv">1</span>, <span class="at">main=</span><span class="fu">paste</span>(<span class="st">"Colombian Congress - Net "</span>, i, <span class="at">sep=</span><span class="st">""</span>), <span class="at">col=</span>i))</span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
@@ -412,7 +405,7 @@ SandinoVictoria    401</code></pre>
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(net)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 9f808f0 DN-- 282 63769 -- 
+<pre><code>IGRAPH 29cc243 DN-- 282 63769 -- 
 + attr: name (v/c), eig (v/n), ind (v/n), outd (v/n), membership (v/n),
 | l1 (v/n), l2 (v/n), text (e/c), name.auth (e/c), name.hub (e/c),
 | color (e/c), friends (e/c), membership.auth (e/c), membership.hub
@@ -440,13 +433,13 @@ SandinoVictoria    401</code></pre>
 <span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co"># We use ggplot2 to make things a</span></span>
 <span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co"># bit prettier</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span><span class="fu">ggplot</span>(cent,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(Hub),<span class="at">y=</span><span class="fu">log</span>(Authority), <span class="at">label=</span><span class="fu">V</span>(net)<span class="sc">$</span>name,<span class="at">colour=</span>Hub, <span class="at">size=</span>Authority))<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">"Hub-Who You Follow"</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Authority-Who Follows You"</span>)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span><span class="fu">ggplot</span>(cent,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(Hub)<span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">5</span>,<span class="at">y=</span><span class="fu">log</span>(Authority), <span class="at">label=</span><span class="fu">V</span>(net)<span class="sc">$</span>name,<span class="at">colour=</span>Hub, <span class="at">size=</span>Authority))<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">"Hub-Who You Follow"</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Authority-Who Follows You"</span>)</span>
 <span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co"># We use the residuals to color and</span></span>
 <span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co"># shape the points of our plot,</span></span>
 <span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co"># making it easier to spot outliers.</span></span>
 <span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="fu">tiff</span>(<span class="at">filename =</span> <span class="st">"Authority and Hub.tiff"</span>, <span class="at">width =</span> <span class="dv">18</span>, <span class="at">height =</span> <span class="dv">9</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">pointsize =</span> <span class="dv">12</span>, <span class="at">compression =</span> <span class="fu">c</span>(<span class="st">"lzw"</span>), <span class="at">bg =</span> <span class="st">"white"</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="fu">tiff</span>(<span class="at">filename =</span> <span class="st">"Authority and Hub.tiff"</span>, <span class="at">width =</span> <span class="dv">20</span>, <span class="at">height =</span> <span class="dv">18</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">pointsize =</span> <span class="dv">3</span>, <span class="at">compression =</span> <span class="fu">c</span>(<span class="st">"lzw"</span>), <span class="at">bg =</span> <span class="st">"white"</span>, <span class="at">res =</span> <span class="dv">1000</span>)</span>
 <span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>p<span class="sc">+</span><span class="fu">geom_text</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Authority vs. Hub"</span>)</span>
 <span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -457,7 +450,6 @@ SandinoVictoria    401</code></pre>
 <p><img src="Authority and Hub.png" class="img-fluid"></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
