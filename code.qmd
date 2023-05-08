@@ -2,7 +2,7 @@
 title: "Code for Research"
 ---
 
-```{r}
+```{r, eval=FALSE}
 
 ## Library to produce network graphs
 library(igraph) 
@@ -28,7 +28,7 @@ View(congress)
 
 Create the network object and add some important variables. We will use E(net)\$text, so this is key.
 
-```{r}
+```{r, eval=FALSE}
 
 # Create Network
 
@@ -49,7 +49,7 @@ E(net)$friends <- congress$friends
 
 Let us now run again our community detection "walktrap.community". We will then retain the top communities and add V(net)\$membership to our network.
 
-```{r}
+```{r, eval=FALSE}
 
 ### Community detection, retain the top communities
 
@@ -66,7 +66,7 @@ net <- induced.subgraph(graph=net,vids=collect.nodes)
 
 Estimate the FR layout and add it to the network. Visualize your network (using plot instead of plot.igraph if the network has thousands of edges).
 
-```{r}
+```{r,eval=FALSE}
 ## Estimate FR Layout
 
 l <-layout_with_fr(net, grid = c("nogrid")) 
@@ -85,7 +85,7 @@ dev.off()
 
 ### Let's see who are the leading authorities of each community
 
-```{r}
+```{r, eval=FALSE}
 
 
 # Make a table of the number of tweets Most active Authorities com 1
@@ -117,7 +117,7 @@ tail(sort(table(V(net)$membership)),30)
 
 We will add the community membership to the E(net). This is key to compare the texts of the Democrats and Republicans.
 
-```{r}
+```{r, eval=FALSE}
 
 ###Merge Membership to Auth
 matrix2<- as.data.frame(cbind(V(net)$name,V(net)$membership))
@@ -137,7 +137,7 @@ summary(net)
 tail(sort(table(E(net)$membership.auth)),30)
 ```
 
-```{r}
+```{r, eval=FALSE}
 
 library(ggplot2)
 library(gtable)

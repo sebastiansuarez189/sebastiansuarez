@@ -155,12 +155,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  <span class="menu-text">Github</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Code.qmd">
+    <a class="nav-link active" href="./code.html" aria-current="page">
  <span class="menu-text">Research Code</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./analysis.html">
  <span class="menu-text">Statistical Analysis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./terp.html">
+ <span class="menu-text">What Does it Mean to be a Terp?</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./Homer's Web Site.html">
@@ -207,182 +211,86 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Library to produce network graphs</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'igraph' was built under R version 4.1.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'igraph'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    decompose, spectrum</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:base':
-
-    union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'lubridate'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:igraph':
-
-    %--%, union</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    date, intersect, setdiff, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:igraph':
-
-    as_data_frame, groups, union</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#set your working directory</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/suava/Desktop/R"</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#rm(list=ls(all=TRUE))</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#load Data</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"C:/Users/suava/Desktop/R/ColombiaTimelines-07312022 (1).RData"</span>) </span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>select.names<span class="ot">&lt;-</span><span class="fu">names</span>(<span class="fu">table</span>(boca.df[,<span class="dv">3</span>]))</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>congress <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(boca.df[boca.df[,<span class="dv">9</span>] <span class="sc">%in%</span> select.names, ])</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(congress)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph) </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(foreign)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#set your working directory</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/suava/Desktop/R"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#rm(list=ls(all=TRUE))</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#load Data</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"C:/Users/suava/Desktop/R/ColombiaTimelines-07312022 (1).RData"</span>) </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>select.names<span class="ot">&lt;-</span><span class="fu">names</span>(<span class="fu">table</span>(boca.df[,<span class="dv">3</span>]))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>congress <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(boca.df[boca.df[,<span class="dv">9</span>] <span class="sc">%in%</span> select.names, ])</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(congress)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create the network object and add some important variables. We will use E(net)$text, so this is key.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Network</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">c</span>(congress[,<span class="dv">3</span>]),<span class="fu">c</span>(congress[,<span class="dv">9</span>]))</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">graph.empty</span>()</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">add.vertices</span>(net, <span class="fu">length</span>(<span class="fu">unique</span>(<span class="fu">c</span>(data))),<span class="at">name=</span><span class="fu">as.character</span>(<span class="fu">unique</span>(<span class="fu">c</span>(data))))</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">add.edges</span>(net, <span class="fu">t</span>(data))</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>text <span class="ot">&lt;-</span> congress<span class="sc">$</span>text</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>name.auth <span class="ot">&lt;-</span> congress<span class="sc">$</span>rtscreenname</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>name.hub <span class="ot">&lt;-</span> congress<span class="sc">$</span>screenname</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>eig<span class="ot">&lt;-</span><span class="fu">evcent</span>(net)<span class="sc">$</span>vector</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>ind<span class="ot">&lt;-</span> <span class="fu">degree</span>(net,<span class="at">mode=</span><span class="st">"in"</span>)</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>outd<span class="ot">&lt;-</span> <span class="fu">degree</span>(net,<span class="at">mode=</span><span class="st">"out"</span>)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="st">"gray"</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>friends <span class="ot">&lt;-</span> congress<span class="sc">$</span>friends</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Network</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="fu">c</span>(congress[,<span class="dv">3</span>]),<span class="fu">c</span>(congress[,<span class="dv">9</span>]))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">graph.empty</span>()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">add.vertices</span>(net, <span class="fu">length</span>(<span class="fu">unique</span>(<span class="fu">c</span>(data))),<span class="at">name=</span><span class="fu">as.character</span>(<span class="fu">unique</span>(<span class="fu">c</span>(data))))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">add.edges</span>(net, <span class="fu">t</span>(data))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>text <span class="ot">&lt;-</span> congress<span class="sc">$</span>text</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>name.auth <span class="ot">&lt;-</span> congress<span class="sc">$</span>rtscreenname</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>name.hub <span class="ot">&lt;-</span> congress<span class="sc">$</span>screenname</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>eig<span class="ot">&lt;-</span><span class="fu">evcent</span>(net)<span class="sc">$</span>vector</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>ind<span class="ot">&lt;-</span> <span class="fu">degree</span>(net,<span class="at">mode=</span><span class="st">"in"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>outd<span class="ot">&lt;-</span> <span class="fu">degree</span>(net,<span class="at">mode=</span><span class="st">"out"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="st">"gray"</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>friends <span class="ot">&lt;-</span> congress<span class="sc">$</span>friends</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let us now run again our community detection “walktrap.community”. We will then retain the top communities and add V(net)$membership to our network.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Community detection, retain the top communities</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>my.com.fast <span class="ot">&lt;-</span> <span class="fu">walktrap.community</span>(net)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>membership <span class="ot">&lt;-</span> my.com.fast<span class="sc">$</span>membership</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>sel.com<span class="ot">&lt;-</span><span class="fu">names</span>(<span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">table</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership)),<span class="at">n=</span><span class="dv">6</span>)) </span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>collect.nodes<span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership<span class="sc">==</span>sel.com[<span class="dv">1</span>])</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>){collect.nodes<span class="ot">&lt;-</span> <span class="fu">c</span>(collect.nodes,<span class="fu">which</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership<span class="sc">==</span>sel.com[i]))}</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">induced.subgraph</span>(<span class="at">graph=</span>net,<span class="at">vids=</span>collect.nodes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Community detection, retain the top communities</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>my.com.fast <span class="ot">&lt;-</span> <span class="fu">walktrap.community</span>(net)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>membership <span class="ot">&lt;-</span> my.com.fast<span class="sc">$</span>membership</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>sel.com<span class="ot">&lt;-</span><span class="fu">names</span>(<span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">table</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership)),<span class="at">n=</span><span class="dv">6</span>)) </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>collect.nodes<span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership<span class="sc">==</span>sel.com[<span class="dv">1</span>])</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>){collect.nodes<span class="ot">&lt;-</span> <span class="fu">c</span>(collect.nodes,<span class="fu">which</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership<span class="sc">==</span>sel.com[i]))}</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">induced.subgraph</span>(<span class="at">graph=</span>net,<span class="at">vids=</span>collect.nodes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Estimate the FR layout and add it to the network. Visualize your network (using plot instead of plot.igraph if the network has thousands of edges).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Estimate FR Layout</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span><span class="fu">layout_with_fr</span>(net, <span class="at">grid =</span> <span class="fu">c</span>(<span class="st">"nogrid"</span>)) </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>l1<span class="ot">&lt;-</span>l[,<span class="dv">1</span>]</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>l2<span class="ot">&lt;-</span>l[,<span class="dv">2</span>]</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot </span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tiff</span>(<span class="at">filename =</span> <span class="fu">paste</span>(<span class="st">"Basic Network Plot.tiff"</span>,<span class="at">sep=</span><span class="st">""</span>), <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">pointsize =</span> <span class="dv">8</span>, <span class="at">compression =</span> <span class="fu">c</span>(<span class="st">"lzw"</span>),  <span class="at">bg =</span> <span class="st">"white"</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">V</span>(net)<span class="sc">$</span>l1,<span class="fu">V</span>(net)<span class="sc">$</span>l2, <span class="at">col=</span><span class="fu">V</span>(net)<span class="sc">$</span>membership, <span class="at">cex=</span><span class="fu">log</span>(<span class="fu">V</span>(net)<span class="sc">$</span>ind)<span class="sc">/</span><span class="dv">5</span>, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">xlab=</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>, <span class="at">yaxt=</span><span class="st">'n'</span>, <span class="at">xaxt=</span><span class="st">'n'</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>png 
-  2 </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Estimate FR Layout</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span><span class="fu">layout_with_fr</span>(net, <span class="at">grid =</span> <span class="fu">c</span>(<span class="st">"nogrid"</span>)) </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>l1<span class="ot">&lt;-</span>l[,<span class="dv">1</span>]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(net)<span class="sc">$</span>l2<span class="ot">&lt;-</span>l[,<span class="dv">2</span>]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tiff</span>(<span class="at">filename =</span> <span class="fu">paste</span>(<span class="st">"Basic Network Plot.tiff"</span>,<span class="at">sep=</span><span class="st">""</span>), <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">pointsize =</span> <span class="dv">8</span>, <span class="at">compression =</span> <span class="fu">c</span>(<span class="st">"lzw"</span>),  <span class="at">bg =</span> <span class="st">"white"</span>, <span class="at">res =</span> <span class="dv">300</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">V</span>(net)<span class="sc">$</span>l1,<span class="fu">V</span>(net)<span class="sc">$</span>l2, <span class="at">col=</span><span class="fu">V</span>(net)<span class="sc">$</span>membership, <span class="at">cex=</span><span class="fu">log</span>(<span class="fu">V</span>(net)<span class="sc">$</span>ind)<span class="sc">/</span><span class="dv">5</span>, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">xlab=</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>, <span class="at">yaxt=</span><span class="st">'n'</span>, <span class="at">xaxt=</span><span class="st">'n'</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="Basic Network Plot.png" class="img-fluid"></p>
 <section id="lets-see-who-are-the-leading-authorities-of-each-community" class="level3">
 <h3 class="anchored" data-anchor-id="lets-see-who-are-the-leading-authorities-of-each-community">Let’s see who are the leading authorities of each community</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a table of the number of tweets Most active Authorities com 1</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">degree</span>(<span class="fu">induced.subgraph</span>(<span class="at">graph=</span>net, <span class="at">vids=</span><span class="fu">which</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership<span class="sc">==</span>i)), <span class="at">mode=</span><span class="st">"in"</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">sort</span>(d,<span class="at">decreasing =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(d) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Tweets"</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">tail</span>(d))</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#windows()</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="fu">paste</span>(<span class="st">"Colombian Congress"</span>,i,<span class="st">".png"</span>,<span class="at">sep=</span><span class="st">""</span>), <span class="at">w=</span><span class="dv">700</span>, <span class="at">h=</span><span class="dv">1000</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(<span class="fu">tail</span>(d,<span class="at">n=</span><span class="dv">30</span>), <span class="fu">barplot</span>(Tweets, <span class="at">names=</span><span class="fu">tail</span>(<span class="fu">rownames</span>(d),<span class="at">n=</span><span class="dv">30</span>), <span class="at">horiz=</span>T, <span class="at">las=</span><span class="dv">1</span>, <span class="at">main=</span><span class="fu">paste</span>(<span class="st">"Colombian Congress - Net "</span>, i, <span class="at">sep=</span><span class="st">""</span>), <span class="at">col=</span>i))</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                Tweets
-CesarPachonAgro    588
-sergio_fajardo     661
-JERobledo          892
-ALFREDOSAADEV     1094
-GustavoBolivar    1140
-petrogustavo      2948</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>              Tweets
-AlejandroChar    379
-HoracioJSerpa    460
-clorduy          509
-DiegoMesaP       549
-davidbarguil     606
-agaviriau        614</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                Tweets
-CARLOSFMEJIA       840
-Diego_Molano       913
-EnriquePenalosa   1177
-FicoGutierrez     1905
-AlvaroUribeVel    5679
-IvanDuque         5852</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                Tweets
-AlbanComunes       184
-Omar_Comunes       193
-CatatumbComunes    210
-JGalloComunes      326
-SandraComunes      344
-SandinoVictoria    401</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">E</span>(net)<span class="sc">$</span>membership.auth,<span class="fu">E</span>(net)<span class="sc">$</span>membership.hub)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt; table of extent 0 x 0 &gt;</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">table</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership)),<span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-  9   6   4   1   3   2 
-  4   5   9  52  83 129 </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a table of the number of tweets Most active Authorities com 1</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">degree</span>(<span class="fu">induced.subgraph</span>(<span class="at">graph=</span>net, <span class="at">vids=</span><span class="fu">which</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership<span class="sc">==</span>i)), <span class="at">mode=</span><span class="st">"in"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">sort</span>(d,<span class="at">decreasing =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(d) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Tweets"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">tail</span>(d))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#windows()</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="fu">paste</span>(<span class="st">"Colombian Congress"</span>,i,<span class="st">".png"</span>,<span class="at">sep=</span><span class="st">""</span>), <span class="at">w=</span><span class="dv">700</span>, <span class="at">h=</span><span class="dv">1000</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(<span class="fu">tail</span>(d,<span class="at">n=</span><span class="dv">30</span>), <span class="fu">barplot</span>(Tweets, <span class="at">names=</span><span class="fu">tail</span>(<span class="fu">rownames</span>(d),<span class="at">n=</span><span class="dv">30</span>), <span class="at">horiz=</span>T, <span class="at">las=</span><span class="dv">1</span>, <span class="at">main=</span><span class="fu">paste</span>(<span class="st">"Colombian Congress - Net "</span>, i, <span class="at">sep=</span><span class="st">""</span>), <span class="at">col=</span>i))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">E</span>(net)<span class="sc">$</span>membership.auth,<span class="fu">E</span>(net)<span class="sc">$</span>membership.hub)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">table</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership)),<span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="Communities on the Colombian Congress1.png" class="img-fluid"></p>
 <p><img src="Communities on the Colombian Congress2.png" class="img-fluid"></p>
@@ -390,62 +298,47 @@ SandinoVictoria    401</code></pre>
 <p><img src="Communities on the Colombian Congress4.png" class="img-fluid"></p>
 <p>We will add the community membership to the E(net). This is key to compare the texts of the Democrats and Republicans.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Merge Membership to Auth</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>matrix2<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(<span class="fu">V</span>(net)<span class="sc">$</span>name,<span class="fu">V</span>(net)<span class="sc">$</span>membership))</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>vector2<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">E</span>(net)<span class="sc">$</span>name.auth)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matrix2)<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name.auth"</span>,<span class="st">"membership.auth"</span>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(vector2)<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name.auth"</span>)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>membership.auth<span class="ot">&lt;-</span><span class="fu">left_join</span>(<span class="at">x=</span>vector2, <span class="at">y=</span>matrix2, <span class="at">by=</span><span class="st">"name.auth"</span>)<span class="sc">$</span>membership.auth</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="do">###Merge Membership to Hub</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>vector2<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">E</span>(net)<span class="sc">$</span>name.hub)</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matrix2)<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name.hub"</span>,<span class="st">"membership.hub"</span>)</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(vector2)<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name.hub"</span>)</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>membership.hub<span class="ot">&lt;-</span><span class="fu">left_join</span>(<span class="at">x=</span>vector2, <span class="at">y=</span>matrix2, <span class="at">by=</span><span class="st">"name.hub"</span>)<span class="sc">$</span>membership.hub</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(net)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 4aa0cbf DN-- 282 63769 -- 
-+ attr: name (v/c), eig (v/n), ind (v/n), outd (v/n), membership (v/n),
-| l1 (v/n), l2 (v/n), text (e/c), name.auth (e/c), name.hub (e/c),
-| color (e/c), friends (e/c), membership.auth (e/c), membership.hub
-| (e/c)</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">table</span>(<span class="fu">E</span>(net)<span class="sc">$</span>membership.auth)),<span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    6     9     4     2     1     3 
-  348  1066  1995 12829 16117 31414 </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Merge Membership to Auth</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>matrix2<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(<span class="fu">V</span>(net)<span class="sc">$</span>name,<span class="fu">V</span>(net)<span class="sc">$</span>membership))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>vector2<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">E</span>(net)<span class="sc">$</span>name.auth)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matrix2)<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name.auth"</span>,<span class="st">"membership.auth"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(vector2)<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name.auth"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>membership.auth<span class="ot">&lt;-</span><span class="fu">left_join</span>(<span class="at">x=</span>vector2, <span class="at">y=</span>matrix2, <span class="at">by=</span><span class="st">"name.auth"</span>)<span class="sc">$</span>membership.auth</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">###Merge Membership to Hub</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>vector2<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">E</span>(net)<span class="sc">$</span>name.hub)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matrix2)<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name.hub"</span>,<span class="st">"membership.hub"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(vector2)<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name.hub"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>membership.hub<span class="ot">&lt;-</span><span class="fu">left_join</span>(<span class="at">x=</span>vector2, <span class="at">y=</span>matrix2, <span class="at">by=</span><span class="st">"name.hub"</span>)<span class="sc">$</span>membership.hub</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(net)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">table</span>(<span class="fu">E</span>(net)<span class="sc">$</span>membership.auth)),<span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtable)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>cent<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">bet=</span><span class="fu">betweenness</span>(net),<span class="at">eig=</span><span class="fu">evcent</span>(net)<span class="sc">$</span>vector)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># evcent returns lots of data associated with the EC, but we only need the</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># leading eigenvector</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>res<span class="ot">&lt;-</span><span class="fu">lm</span>(eig<span class="sc">~</span>bet,<span class="at">data=</span>cent)<span class="sc">$</span>residuals</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>cent<span class="ot">&lt;-</span><span class="fu">transform</span>(cent,<span class="at">res=</span>res)</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>Hub<span class="ot">&lt;-</span><span class="fu">hub.score</span>(net)<span class="sc">$</span>vector</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>Authority<span class="ot">&lt;-</span><span class="fu">authority.score</span>(net)<span class="sc">$</span>vector</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co"># We use ggplot2 to make things a</span></span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co"># bit prettier</span></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span><span class="fu">ggplot</span>(cent,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(Hub)<span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">5</span>,<span class="at">y=</span><span class="fu">log</span>(Authority), <span class="at">label=</span><span class="fu">V</span>(net)<span class="sc">$</span>name,<span class="at">colour=</span>Hub, <span class="at">size=</span>Authority))<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">"Hub-Who You Follow"</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Authority-Who Follows You"</span>)</span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co"># We use the residuals to color and</span></span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co"># shape the points of our plot,</span></span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co"># making it easier to spot outliers.</span></span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="fu">tiff</span>(<span class="at">filename =</span> <span class="st">"Authority and Hub.tiff"</span>, <span class="at">width =</span> <span class="dv">20</span>, <span class="at">height =</span> <span class="dv">18</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">pointsize =</span> <span class="dv">3</span>, <span class="at">compression =</span> <span class="fu">c</span>(<span class="st">"lzw"</span>), <span class="at">bg =</span> <span class="st">"white"</span>, <span class="at">res =</span> <span class="dv">1000</span>)</span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>p<span class="sc">+</span><span class="fu">geom_text</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Authority vs. Hub"</span>)</span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>png 
-  2 </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtable)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>cent<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">bet=</span><span class="fu">betweenness</span>(net),<span class="at">eig=</span><span class="fu">evcent</span>(net)<span class="sc">$</span>vector)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># evcent returns lots of data associated with the EC, but we only need the</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># leading eigenvector</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>res<span class="ot">&lt;-</span><span class="fu">lm</span>(eig<span class="sc">~</span>bet,<span class="at">data=</span>cent)<span class="sc">$</span>residuals</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>cent<span class="ot">&lt;-</span><span class="fu">transform</span>(cent,<span class="at">res=</span>res)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>Hub<span class="ot">&lt;-</span><span class="fu">hub.score</span>(net)<span class="sc">$</span>vector</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>Authority<span class="ot">&lt;-</span><span class="fu">authority.score</span>(net)<span class="sc">$</span>vector</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># We use ggplot2 to make things a</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># bit prettier</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span><span class="fu">ggplot</span>(cent,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(Hub)<span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">5</span>,<span class="at">y=</span><span class="fu">log</span>(Authority), <span class="at">label=</span><span class="fu">V</span>(net)<span class="sc">$</span>name,<span class="at">colour=</span>Hub, <span class="at">size=</span>Authority))<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">"Hub-Who You Follow"</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">"Authority-Who Follows You"</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># We use the residuals to color and</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># shape the points of our plot,</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># making it easier to spot outliers.</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="fu">tiff</span>(<span class="at">filename =</span> <span class="st">"Authority and Hub.tiff"</span>, <span class="at">width =</span> <span class="dv">20</span>, <span class="at">height =</span> <span class="dv">18</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">pointsize =</span> <span class="dv">3</span>, <span class="at">compression =</span> <span class="fu">c</span>(<span class="st">"lzw"</span>), <span class="at">bg =</span> <span class="st">"white"</span>, <span class="at">res =</span> <span class="dv">1000</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>p<span class="sc">+</span><span class="fu">geom_text</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Authority vs. Hub"</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="Authority and Hub.png" class="img-fluid"></p>
 

@@ -12,7 +12,7 @@ website:
         text: About
       - href: https://github.com/sebastiansuarez189/myrepo.git  
         text: Github
-      - href: Code.qmd
+      - href: code.qmd
         text: Research Code
       - href: analysis.qmd
         text: Statistical Analysis
