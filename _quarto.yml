@@ -16,8 +16,11 @@ website:
         text: Research Code
       - href: analysis.qmd
         text: Statistical Analysis
+      - href: terp.qmd
+        text: What Does it Mean to be a Terp?
       - href: Homer's Web Site.qmd
         text: Best Website
+        
 
         
       
