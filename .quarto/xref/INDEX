@@ -13,5 +13,11 @@
   },
   "docs/Code.qmd": {
     "Code.html": "19175ff0"
+  },
+  "analysis.qmd": {
+    "analysis.html": "6d38e3d2"
+  },
+  "terp.qmd": {
+    "terp.html": "50f89f93"
   }
 }
