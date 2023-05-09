@@ -2,6 +2,8 @@
 title: "Code for Research"
 ---
 
+Set up of the libraries and Data
+
 ```{r, eval=FALSE}
 
 ## Library to produce network graphs
@@ -26,7 +28,7 @@ View(congress)
 
 ```
 
-Create the network object and add some important variables. We will use E(net)\$text, so this is key.
+Create the network object and add some important variables.
 
 ```{r, eval=FALSE}
 
@@ -47,7 +49,7 @@ E(net)$friends <- congress$friends
 
 ```
 
-Let us now run again our community detection "walktrap.community". We will then retain the top communities and add V(net)\$membership to our network.
+Community detection
 
 ```{r, eval=FALSE}
 
@@ -64,7 +66,7 @@ net <- induced.subgraph(graph=net,vids=collect.nodes)
 
 ```
 
-Estimate the FR layout and add it to the network. Visualize your network (using plot instead of plot.igraph if the network has thousands of edges).
+Visuals of the Network
 
 ```{r,eval=FALSE}
 ## Estimate FR Layout
@@ -83,7 +85,7 @@ dev.off()
 
 ![](Basic%20Network%20Plot.png)
 
-### Let's see who are the leading authorities of each community
+Leading Authorities and visualization
 
 ```{r, eval=FALSE}
 
@@ -115,7 +117,7 @@ tail(sort(table(V(net)$membership)),30)
 
 ![](Communities%20on%20the%20Colombian%20Congress4.png)
 
-We will add the community membership to the E(net). This is key to compare the texts of the Democrats and Republicans.
+Community membership to the E(net).
 
 ```{r, eval=FALSE}
 
@@ -136,6 +138,8 @@ summary(net)
 
 tail(sort(table(E(net)$membership.auth)),30)
 ```
+
+Visualization of Authorities and Hub
 
 ```{r, eval=FALSE}
 
