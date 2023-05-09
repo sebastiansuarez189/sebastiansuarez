@@ -181,13 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#lets-see-who-are-the-leading-authorities-of-each-community" id="toc-lets-see-who-are-the-leading-authorities-of-each-community" class="nav-link active" data-scroll-target="#lets-see-who-are-the-leading-authorities-of-each-community">Let’s see who are the leading authorities of each community</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -209,6 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<p>Set up of the libraries and Data</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Library to produce network graphs</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph) </span>
@@ -230,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>congress <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(boca.df[boca.df[,<span class="dv">9</span>] <span class="sc">%in%</span> select.names, ])</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(congress)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Create the network object and add some important variables. We will use E(net)$text, so this is key.</p>
+<p>Create the network object and add some important variables.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Network</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -247,7 +242,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="st">"gray"</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(net)<span class="sc">$</span>friends <span class="ot">&lt;-</span> congress<span class="sc">$</span>friends</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let us now run again our community detection “walktrap.community”. We will then retain the top communities and add V(net)$membership to our network.</p>
+<p>Community detection</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Community detection, retain the top communities</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -258,7 +253,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>){collect.nodes<span class="ot">&lt;-</span> <span class="fu">c</span>(collect.nodes,<span class="fu">which</span>(<span class="fu">V</span>(net)<span class="sc">$</span>membership<span class="sc">==</span>sel.com[i]))}</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>net <span class="ot">&lt;-</span> <span class="fu">induced.subgraph</span>(<span class="at">graph=</span>net,<span class="at">vids=</span>collect.nodes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Estimate the FR layout and add it to the network. Visualize your network (using plot instead of plot.igraph if the network has thousands of edges).</p>
+<p>Visuals of the Network</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Estimate FR Layout</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -272,8 +267,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="Basic Network Plot.png" class="img-fluid"></p>
-<section id="lets-see-who-are-the-leading-authorities-of-each-community" class="level3">
-<h3 class="anchored" data-anchor-id="lets-see-who-are-the-leading-authorities-of-each-community">Let’s see who are the leading authorities of each community</h3>
+<p>Leading Authorities and visualization</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a table of the number of tweets Most active Authorities com 1</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
@@ -296,7 +290,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="Communities on the Colombian Congress2.png" class="img-fluid"></p>
 <p><img src="Communities on the Colombian Congress3.png" class="img-fluid"></p>
 <p><img src="Communities on the Colombian Congress4.png" class="img-fluid"></p>
-<p>We will add the community membership to the E(net). This is key to compare the texts of the Democrats and Republicans.</p>
+<p>Community membership to the E(net).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Merge Membership to Auth</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>matrix2<span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(<span class="fu">V</span>(net)<span class="sc">$</span>name,<span class="fu">V</span>(net)<span class="sc">$</span>membership))</span>
@@ -315,6 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(<span class="fu">sort</span>(<span class="fu">table</span>(<span class="fu">E</span>(net)<span class="sc">$</span>membership.auth)),<span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Visualization of Authorities and Hub</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtable)</span>
@@ -343,7 +338,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="Authority and Hub.png" class="img-fluid"></p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
